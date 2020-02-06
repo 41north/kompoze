@@ -1,0 +1,25 @@
+# Example definition file
+[global]
+  base_path = "."
+
+[vars]
+  include = ["vars/global.toml"]
+  [vars.global]
+    network_enabled = true
+    network_name = "net"
+    network_subnet = "172.25.0.0/16"
+
+[[templates]]
+  src  = "templates/stack.yml.tpl"
+  dest = "out/stack-1.yml"
+  include_vars = ["vars/stack-1.toml"]
+  [templates.local_vars]
+    mariadb_version = "10.2.21"
+    mariadb_volume_enabled = true
+
+[[templates]]
+  src  = "templates/stack.yml.tpl"
+  dest = "out/stack-2.yml"
+  [templates.local_vars]
+    mariadb_version = "11"
+    mariadb_volume_enabled = false
