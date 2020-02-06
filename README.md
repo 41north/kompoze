@@ -12,6 +12,49 @@ Yes, there are several nice tricks to make YAML feels more dynamic [like anchors
 
 This is where `kompoze` appears to the rescue!
 
+## Installation
+
+Download the latest version in your container:
+
+* [linux/amd64](https://github.com/41North/kompoze/releases/download/v1.0.0/kompoze-linux-amd64-v1.0.0.tar.gz)
+* [alpine/amd64](https://github.com/41North/kompoze/releases/download/v1.0.0/kompoze-alpine-linux-amd64-v1.0.0.tar.gz)
+* [darwin/amd64](https://github.com/41North/kompoze/releases/download/v1.0.0/kompoze-darwin-amd64-v1.0.0.tar.gz)
+
+### Docker Base Image
+
+The `41north/kompoze` image is a base image based on `alpine linux`. `kompoze` is installed in the `$PATH` and can be used directly.
+
+```
+FROM 41north/kompoze
+...
+ENTRYPOINT kompoze ...
+```
+
+### Ubuntu Images
+
+``` Dockerfile
+RUN apt-get update && apt-get install -y wget
+
+ENV KOMPOZE_VERSION v1.0.0
+
+RUN wget https://github.com/41North/kompoze/releases/download/$KOMPOZE_VERSION/kompoze-linux-amd64--KOMPOZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf kompoze-linux-amd64-$KOMPOZE_VERSION.tar.gz \
+    && rm kompoze-linux-amd64-$KOMPOZE_VERSION.tar.gz
+```
+
+### For Alpine Images:
+
+``` Dockerfile
+RUN apk add --no-cache openssl
+
+ENV KOMPOZE_VERSION v1.0.0
+
+RUN wget https://github.com/41North/kompoze/releases/download/$KOMPOZE_VERSION/kompoze-alpine-linux-amd64-KOMPOZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf kompoze-alpine-linux-amd64-$KOMPOZE_VERSION.tar.gz \
+    && rm kompoze-alpine-linux-amd64-$KOMPOZE_VERSION.tar.gz
+```
+
+
 ## Usage
 
 `kompoze` utilizes a `definition.toml` file (read [definition section](#definition-file) for more information) that defines how to render the templates.
@@ -152,7 +195,7 @@ Many thanks to:
  - [jwilder](https://github.com/jwilder)
  - [Aisbergg](https://github.com/Aisbergg) 
  
-Both of them for creating [dockerize](https://github.com/EthVM/docker-templates) and [python-docker-compose-templer](https://github.com/Aisbergg/python-docker-compose-templer) respectively, from which this project draws 99% inspiration!
+Both of them for creating [dockerize](https://github.com/jwilder/dockerize) and [python-docker-compose-templer](https://github.com/Aisbergg/python-docker-compose-templer) respectively, from which this project draws 99% inspiration!
 
 ## License
 
