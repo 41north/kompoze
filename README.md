@@ -16,13 +16,13 @@ This is where `kompoze` appears to the rescue!
 
 Download the latest version in your container:
 
-* [linux/amd64](https://github.com/41North/kompoze/releases/download/v1.0.0/kompoze-linux-amd64-v1.0.0.tar.gz)
-* [alpine/amd64](https://github.com/41North/kompoze/releases/download/v1.0.0/kompoze-alpine-linux-amd64-v1.0.0.tar.gz)
-* [darwin/amd64](https://github.com/41North/kompoze/releases/download/v1.0.0/kompoze-darwin-amd64-v1.0.0.tar.gz)
+* [linux/amd64](https://github.com/41north/kompoze/releases/download/v1.0.0/kompoze-linux-amd64-.tar.gz)
+* [alpine/amd64](https://github.com/41north/kompoze/releases/download/v1.0.0/kompoze-alpine-linux-amd64-.tar.gz)
+* [darwin/amd64](https://github.com/41north/kompoze/releases/download/v1.0.0/kompoze-darwin-amd64-.tar.gz)
 
 ### Docker Base Image
 
-The `41north/kompoze` image is a base image based on `alpine linux`. `kompoze` is installed in the `$PATH` and can be used directly.
+The [`41north/kompoze`](https://hub.docker.com/r/41north/kompoze) image is a base image based on `alpine linux`. `kompoze` is installed in the `$PATH` and can be used directly.
 
 ```
 FROM 41north/kompoze
