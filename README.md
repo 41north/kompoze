@@ -10,7 +10,7 @@ Docker Compose / Stack files are very static in nature as you only can use [YAML
 
 Yes, there are several nice tricks to make YAML feels more dynamic [like anchors or block merging](https://www.hadeploy.com/more/yaml_tricks/) but in the end, you can't add conditionals, neither iterations, scoped blocks...
 
-This is where `kompoze` appears to the rescue!
+This is where `kompoze` comes to the rescue!
 
 ## Installation
 
@@ -57,7 +57,7 @@ RUN wget https://github.com/41North/kompoze/releases/download/$KOMPOZE_VERSION/k
 
 ## Usage
 
-`kompoze` utilizes a `definition.toml` file (read [definition section](#definition-file) for more information) that defines how to render the templates.
+`kompoze` relies upon a `definition.toml` file (read [definition section](#definition-file) for more information) that specifies how to render the templates.
 
 By default, if you don't pass anything to `kompoze`, it will search for a `definition.toml` file in current directory. So:
 
@@ -65,7 +65,7 @@ By default, if you don't pass anything to `kompoze`, it will search for a `defin
 $ kompoze
 ```
 
-And this, are equal:
+is equivalent to:
 
 ```sh
 $ kompoze definition.toml
@@ -89,7 +89,7 @@ If your file uses `{{` and `}}` as part of it's syntax, you can change the templ
 $ kompoze -delims "<%:%>"
 ```
 
-By default, the `base-path` for rendering will be the one on which you run `kompoze` (so any relative paths that are specified inside the definition file can be resolved). You can change it with the following option:
+By default, the `base-path` for rendering will be the one in which you run `kompoze` (so any relative paths that are specified inside the definition file can be resolved). You can change it with the following option:
 
 ```sh
 $ kompoze --base-path /another/path
@@ -97,12 +97,12 @@ $ kompoze --base-path /another/path
 
 ### Definition File
 
-The definition file uses [TOML](https://github.com/toml-lang/toml) format and tries to be very minimal and concise. It's composed by two main sections:
+The definition file uses [TOML](https://github.com/toml-lang/toml) format and tries to be very minimal and concise. It's comprised of two main sections:
 
 - Global vars: Those common variables that will be applied to every template (if any).
 - Templates: Where it defines which templates to render and which variables are overridden from the global scope.
 
-Take a look on the example below:
+Take a look at the example below:
 
 ```toml
 # Example definition file
@@ -154,10 +154,10 @@ The different sources of variables are merged together in the following order:
 
 ### Templates
 
-Templates are rendered by using Golang's [text/template](http://golang.org/pkg/text/template/) package with the mix of two powerful additions:
+Templates are rendered using Golang's [text/template](http://golang.org/pkg/text/template/) package with the mix of two powerful additions:
 
 - [sprig](https://masterminds.github.io/sprig/) functions. 
-- Some of [dockerize](https://github.com/jwilder/dockerize) set of functions.
+- Some [dockerize](https://github.com/jwilder/dockerize) functions.
 
 You can access environment variables within a template with `.Env` like `dockerize` or those defined in the definition file with plain `.` (like `.some_global_var`).
 
@@ -165,7 +165,7 @@ You can access environment variables within a template with `.Env` like `dockeri
 {{ .Env.PATH }} is my path
 ```
 
-The set of stolen built in functions stolen from [dockerize](https://github.com/jwilder/dockerize) are the following:
+The set of borrowed functions from [dockerize](https://github.com/jwilder/dockerize) are the following:
 
   * `exists $path` - Determines if a file path exists or not. `{{ exists "/etc/default/myapp" }}`
   * `parseUrl $url` - Parses a URL into it's [protocol, scheme, host, etc. parts](https://golang.org/pkg/net/url/#URL). Alias for [`url.Parse`](https://golang.org/pkg/net/url/#Parse)
@@ -173,7 +173,7 @@ The set of stolen built in functions stolen from [dockerize](https://github.com/
   * `isFalse $value` - Parses a string $value to a boolean value. `{{ if isFalse .Env.ENABLED }}`
   * `loop` - Create for loops.
   
-On the sprig side, everything is included by default, so you have access to all defined functions. 
+On the sprig side, everything is included by default, so you have access to all sprig functions. 
 
 ## Contributions
 
@@ -195,7 +195,7 @@ Many thanks to:
  - [jwilder](https://github.com/jwilder)
  - [Aisbergg](https://github.com/Aisbergg) 
  
-Both of them for creating [dockerize](https://github.com/jwilder/dockerize) and [python-docker-compose-templer](https://github.com/Aisbergg/python-docker-compose-templer) respectively, from which this project draws 99% inspiration!
+Both of them for creating [dockerize](https://github.com/jwilder/dockerize) and [python-docker-compose-templer](https://github.com/Aisbergg/python-docker-compose-templer) respectively, from which this project draws 99% of its inspiration!
 
 ## License
 
